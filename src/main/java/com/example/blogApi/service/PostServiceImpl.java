@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PostServiceImpl implements PostService{
 
-    @Autowired
+    @Autowired //this is a dependency injection of the post repository into the service implementation
     private PostRespository postRespository;
 
     public Post savePost(Post post) {
@@ -18,6 +19,10 @@ public class PostServiceImpl implements PostService{
         post.setViewCount(0);
         post.setDate(new Date());
 
-        return postRespository.save(post);
+        return postRespository.save(post); //this creates a post
+    }
+
+    public List<Post> getAllPosts() {
+        return postRespository.findAll();
     }
 }

@@ -21,6 +21,8 @@ public class Post {
 
     private String postedBy;
 
+    private String img;
+
     private Date date;
 
     private int likeCount;
