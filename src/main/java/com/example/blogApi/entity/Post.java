@@ -30,4 +30,5 @@ public class Post {
     private int viewCount;
 
     private List<String> tags;
+
 }
