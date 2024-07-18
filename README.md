@@ -72,8 +72,8 @@ This project is a simple Blog API built with Spring Boot and PostgreSQL, utilizi
 
 ### Blog Posts
 - `GET /api/v1/posts` - Get all posts (with pagination and sorting)
-- `GET /api/v1/posts/{id}` - Get a single post by ID
+- `GET /api/v1/posts/{postId}` - Get a single post by ID
 - `POST /api/v1/posts` - Create a new post
-- `PUT /api/v1/posts/{id}` - Update a post
-- `DELETE /api/v1/posts/{id}` - Delete a post
+- `PUT /api/v1/posts/{postId}` - Update a post
+- `DELETE /api/v1/posts/{postId}` - Delete a post
 
