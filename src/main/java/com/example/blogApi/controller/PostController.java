@@ -1,7 +1,6 @@
 package com.example.blogApi.controller;
 
 import com.example.blogApi.entity.Post;
-import com.example.blogApi.repository.PostRespository;
 import com.example.blogApi.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +38,6 @@ public class PostController {
     @GetMapping("/{postId}")
     public ResponseEntity<?> getPostById(@PathVariable Long postId) {
         try {
-            Post getPost = postService.getPostById(postId);
             return ResponseEntity.status(HttpStatus.OK).body(postService.getPostById(postId));
         } catch(Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -62,6 +60,16 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.OK).body(postService.searchByName(name));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/delete/{postId}")
+    public ResponseEntity<?> deletePost(@PathVariable Long postId) {
+        try {
+            postService.deletePost(postId);
+            return ResponseEntity.ok(new String[]{"Post deleted successfully."});
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }

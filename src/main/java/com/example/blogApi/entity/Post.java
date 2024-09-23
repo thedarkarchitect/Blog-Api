@@ -29,6 +29,7 @@ public class Post {
 
     private int viewCount;
 
+    @ElementCollection //this is used to create a table for the tags since table can be set to attribute type of List<>
     private List<String> tags;
 
 }

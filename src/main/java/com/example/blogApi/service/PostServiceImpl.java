@@ -3,7 +3,6 @@ package com.example.blogApi.service;
 import com.example.blogApi.entity.Post;
 import com.example.blogApi.repository.PostRespository;
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.action.internal.EntityActionVetoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +55,15 @@ public class PostServiceImpl implements PostService{
 
     public List<Post> searchByName(String name) {
         return postRespository.findAllByNameContaining(name);
+    }
+
+    public void deletePost(Long postId) {
+        Optional<Post> optionalPost = postRespository.findById(postId);
+
+        if(optionalPost.isPresent()) {
+            postRespository.deleteById(postId);
+        } else {
+            throw new EntityNotFoundException("Post not found with id: "+ postId );
+        }
     }
 }
