@@ -1,9 +1,9 @@
-package com.example.blogApi.service;
+package com.example.blogApi.service.post;
 
 import com.example.blogApi.entity.Post;
 import com.example.blogApi.repository.PostRespository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -11,16 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PostServiceImpl implements PostService{
+@RequiredArgsConstructor
+public class PostServiceImpl implements PostService {
 
-    @Autowired //this is a dependency injection of the post repository into the service implementation
-    private PostRespository postRespository;
+    //this is a dependency injection of the post repository into the service implementation
+    private final PostRespository postRespository;
+//    private final ImageRepository imageRepository;
 
-    public Post savePost(Post post) {
+
+    public Post savePost(Post post) { //ok
         post.setLikeCount(0);
         post.setViewCount(0);
         post.setDate(new Date());
-
         return postRespository.save(post); //this creates a post
     }
 
@@ -28,7 +30,9 @@ public class PostServiceImpl implements PostService{
         return postRespository.findAll();
     }
 
+    @Override
     public Post getPostById(Long postId) {
+//        return postRespository.findById(postId);
         Optional<Post> optionalPost = postRespository.findById(postId);
 
         if(optionalPost.isPresent()) {
@@ -38,8 +42,10 @@ public class PostServiceImpl implements PostService{
         } else {
             throw new EntityNotFoundException("Post not found");
         }
+
     }
 
+    @Override
     public void likePost(Long postId) {
         Optional<Post> optionalPost = postRespository.findById(postId);
 
@@ -53,10 +59,12 @@ public class PostServiceImpl implements PostService{
         }
     }
 
+    @Override
     public List<Post> searchByName(String name) {
-        return postRespository.findAllByNameContaining(name);
+        return postRespository.findAllByTitleContaining(name);
     }
 
+    @Override
     public void deletePost(Long postId) {
         Optional<Post> optionalPost = postRespository.findById(postId);
 
@@ -66,4 +74,5 @@ public class PostServiceImpl implements PostService{
             throw new EntityNotFoundException("Post not found with id: "+ postId );
         }
     }
+
 }

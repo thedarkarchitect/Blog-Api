@@ -1,4 +1,4 @@
-package com.example.blogApi.service;
+package com.example.blogApi.service.comments;
 
 import com.example.blogApi.entity.Comment;
 

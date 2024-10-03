@@ -1,9 +1,10 @@
-package com.example.blogApi.service;
+package com.example.blogApi.service.post;
 
 
 import com.example.blogApi.entity.Post;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostService {
 
