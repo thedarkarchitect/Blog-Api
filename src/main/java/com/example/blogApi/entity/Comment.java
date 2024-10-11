@@ -8,7 +8,6 @@ import java.util.Date;
 @Entity
 @Data
 public class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,5 +19,4 @@ public class Comment {
     @JoinColumn(name = "post_id", nullable = false) //makes a post id for each comment
     @JsonBackReference
     private Post post;
-
 }

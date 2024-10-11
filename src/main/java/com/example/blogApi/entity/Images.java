@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Builder // this is used to create a builder class for the entity
+@Builder // this is used to create a builder class for the entity used to create an object of the entity
 @NoArgsConstructor
 @AllArgsConstructor
 public class Images {
@@ -19,6 +19,7 @@ public class Images {
     private String type;
 
     @Lob
+    @JsonIgnore
     private byte[] imageData;
     private String downloadUrl;
 

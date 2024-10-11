@@ -29,6 +29,7 @@ public class Post {
     private Images images ;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonBackReference
     private List<Comment> comment = new ArrayList<>();
 
 }
