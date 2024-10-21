@@ -29,6 +29,8 @@ public class WebSecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    private final CorsConfig corsConfig;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)//this line disables the crsf protection cause the application is stateless cause it is using JWT
@@ -39,7 +41,9 @@ public class WebSecurityConfiguration {
                 .addFilterBefore(
                         jwtAuthenticationFilter, //collects the JWT token from the request and validates it and sets the user details in the security context
                         UsernamePasswordAuthenticationFilter.class // UsernamePasswordAuthenticationFilter is the default filter that processes authentication requests after the user submits their username and password
-                ); //this adds the jwtAuthenticationFilter before the UsernamePasswordAuthenticationFilter
+                )
+                .cors(c -> c.configurationSource(corsConfig)); //this adds the jwtAuthenticationFilter before the UsernamePasswordAuthenticationFilter
+
         return httpSecurity.build(); //this builds the securityfilterchain object
     }
 

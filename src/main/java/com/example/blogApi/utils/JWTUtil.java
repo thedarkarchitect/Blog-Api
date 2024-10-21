@@ -33,6 +33,9 @@ public class JWTUtil {
     }
 
     private <T> T extractClaims(String token, Function<Claims, T> claimsResolver) { // Extract claims from the token
+
+        // try to make it that claims are not extracted if token is expired //
+
         final Claims claims = extractAllClaims(token); // Extract all claims from the token
         return claimsResolver.apply(claims); // Return the claims as a function of the claims resolver
     }
@@ -45,7 +48,7 @@ public class JWTUtil {
         return extractClaims(token, Claims::getExpiration); // Return the expiration date of the claims
     }
 
-    public Boolean isTokenExpired(String token) { // Check if the token is expired
+    private Boolean isTokenExpired(String token) { // Check if the token is expired
         return extractExpiration(token).before(new Date()); // Return true if the expiration date is before the current date
     }
 

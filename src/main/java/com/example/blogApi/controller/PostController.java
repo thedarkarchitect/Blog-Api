@@ -1,5 +1,6 @@
 package com.example.blogApi.controller;
 
+import com.example.blogApi.dto.requests.PostRequest;
 import com.example.blogApi.dto.responses.ApiResponse;
 import com.example.blogApi.dto.responses.MessageResponse;
 import com.example.blogApi.entity.Post;
@@ -18,7 +19,7 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createPost(@RequestBody Post post) {
+    public ResponseEntity<?> createPost(@RequestBody PostRequest post) {
         try {
             Post createdPost = postService.savePost(post);
             return ResponseEntity.status(HttpStatus.CREATED).body(new ApiResponse("success", createdPost, 1));
@@ -42,16 +43,6 @@ public class PostController {
             return ResponseEntity.ok(new ApiResponse("success", postService.getPostById(postId), 1));
         } catch(Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Post with id " + postId + " not found."));
-        }
-    }
-
-    @PutMapping("/{postId}/like")
-    public ResponseEntity<?> likePost(@PathVariable Long postId) {
-        try {
-            postService.likePost(postId);
-            return ResponseEntity.ok(new MessageResponse("Post liked successfully."));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("Failed to like post."));
         }
     }
 
